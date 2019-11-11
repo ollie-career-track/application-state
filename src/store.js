@@ -9,13 +9,13 @@ const initialState = {
 
 function reducer(state = initialState, action) {
   switch(action.type) {
-    case 'INCREMENT_COFFEES':
+    case 'DRINK_COFFEE':
       return { ...state, coffees: state.coffees + 1 };
-    case 'INCREMENT_SNACKS':
+    case 'EAT_SNACK':
       return { ...state, snacks: state.snacks + 1 };
-    case 'INCREMENT_NAPS':
+    case 'TAKE_NAPS':
       return { ...state, naps: state.naps + 1 };
-    case 'INCREMENT_STUDIES':
+    case 'STUDY':
       return { ...state, studies: state.studies + 1 };
   }
 }
