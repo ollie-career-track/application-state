@@ -26,13 +26,6 @@ export const getFace = state => {
 };
 
 export default class Moods extends Component {
-  state = {
-    coffees: 0,
-    snacks: 0,
-    naps: 0,
-    studies: 0
-  }
-
   handleSelection = name => {
     switch(name) {
       case 'DRINK_COFFEE':
