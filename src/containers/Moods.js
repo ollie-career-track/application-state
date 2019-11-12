@@ -1,26 +1,36 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import Controls from '../components/controls/Controls';
 import Face from '../components/face/Face';
-import actions from '../actions/actions';
 import getFace from '../selectors/selectors';
+import PropTypes from 'prop-types';
+import actions from '../actions/actions';
 
-class Moods extends Component {
-  render() {
-    const face = getFace(this.state);
-    const controlActions = actions.map(action => ({
-      ...action,
-      count: this.state[action.stateName]
-    }));
+const Moods = ({ coffees, snacks, naps, studies, handleSelection }) => {
+  const count = {
+    coffees,
+    snacks,
+    naps, 
+    studies
+  };
 
-    return (
-      <>
-        <Controls actions={controlActions} handleSelection={this.handleSelection}/>
-        <Face emoji={face} />
-      </>
-    );
-  }
-}
+  const face = getFace(count);
+
+  return (
+    <>
+      <Controls actions={actions} handleSelection={handleSelection} />
+      <Face emoji={face} />
+    </>
+  );
+};
+
+Moods.propTypes = {
+  coffees: PropTypes.number.isRequired,
+  snacks: PropTypes.number.isRequired,
+  naps: PropTypes.number.isRequired,
+  studies: PropTypes.number.isRequired,
+  handleSelection: PropTypes.func.isRequired
+};
 
 const mapStateToProps = state => ({
   coffees: state.coffees,
@@ -30,25 +40,10 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  drinkCoffee() {
+  handleSelection(name) {
     dispatch({
-      type: 'DRINK_COFFEE'
+      type: name
     });
-  },
-  eatSnack() {
-    dispatch({
-      type: 'EAT_SNACK'
-    });
-  },
-  takeNap() {
-    dispatch({
-      type: 'TAKE_NAP'
-    });
-  },
-  study() {
-    dispatch({
-      type: 'STUDY'
-    }); 
   }
 });
 

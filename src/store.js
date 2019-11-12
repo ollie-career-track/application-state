@@ -17,6 +17,8 @@ function reducer(state = initialState, action) {
       return { ...state, naps: state.naps + 1 };
     case 'STUDY':
       return { ...state, studies: state.studies + 1 };
+    default:
+      return state;
   }
 }
 
