@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getCoffees, getSnacks, getNaps, getStudies } from '../selectors/moodSelectors';
+import { drinkCoffee, eatSnacks, takeNap, study } from '../actions/moodActions';
 import Controls from '../components/controls/Controls';
 import Face from '../components/face/Face';
 
@@ -54,8 +55,6 @@ Moods.propTypes = {
   handleSelection: PropTypes.func.isRequired
 };
 
-// actions: actions.map(action => ({ ...action, count: state[action.stateName] })),
-
 const mapStateToProps = state => {
   return {
     coffees: getCoffees(state),
@@ -67,9 +66,10 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => ({
   handleSelection(name) {
-    dispatch({
-      type: name
-    });
+    if(name === 'coffees') dispatch(drinkCoffee());
+    if(name === 'snacks') dispatch(eatSnacks());
+    if(name === 'naps') dispatch(takeNap());
+    if(name === 'study') dispatch(study());
   }
 });
 
