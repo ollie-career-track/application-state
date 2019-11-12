@@ -2,41 +2,41 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Controls from '../components/controls/Controls';
 import Face from '../components/face/Face';
-import getFace from '../selectors/selectors';
-import PropTypes from 'prop-types';
-import actions from '../actions/actions';
 
-const Moods = ({ coffees, snacks, naps, studies, handleSelection }) => {
-  const count = {
-    coffees,
-    snacks,
-    naps, 
-    studies
-  };
+export const isTired = state => state.coffees < 1 && state.naps < 1;
+export const isHyper = state => state.coffees > 3;
+export const isEducated = state => state.studies > 2;
+export const isHungry = state => state.snacks < 1;
 
-  const face = getFace(count);
+export const getFace = state => {
+  if(isTired(state) && isHungry(state)) return '🤬';
+  if(isHyper(state) && isHungry(state)) return '🤮';
+  if(isTired(state)) return '😴';
+  if(isHyper(state)) return '🙀';
+  if(isEducated(state)) return '🤯';
+  if(isHungry(state)) return '😡';
 
-  return (
-    <>
-      <Controls actions={actions} handleSelection={handleSelection} />
-      <Face emoji={face} />
-    </>
-  );
+  return '😀';
 };
 
-Moods.propTypes = {
-  coffees: PropTypes.number.isRequired,
-  snacks: PropTypes.number.isRequired,
-  naps: PropTypes.number.isRequired,
-  studies: PropTypes.number.isRequired,
-  handleSelection: PropTypes.func.isRequired
-};
+const actions = [
+  { name: 'DRINK_COFFEE', text: 'Drink Coffee', stateName: 'coffees' },
+  { name: 'EAT_SNACK', text: 'Snack', stateName: 'snacks' },
+  { name: 'TAKE_NAP', text: 'Nap', stateName: 'naps' },
+  { name: 'STUDY', text: 'Study', stateName: 'studies' },
+];
+
+// eslint-disable-next-line react/prop-types
+const Moods = ({ actions, emoji, handleSelection }) => (
+  <>
+    <Controls actions={actions} handleSelection={handleSelection} />
+    <Face emoji={emoji} />
+  </>
+);
 
 const mapStateToProps = state => ({
-  coffees: state.coffees,
-  snacks: state.snacks,
-  naps: state.naps,
-  studies: state.studies
+  actions: actions.map(action => ({ ...action, count: state[action.stateName] })),
+  emoji: getFace(state)
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -47,9 +47,7 @@ const mapDispatchToProps = dispatch => ({
   }
 });
 
-const MoodContainer = connect(
+export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(Moods);
-
-export default MoodContainer;

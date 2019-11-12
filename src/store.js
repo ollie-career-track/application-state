@@ -1,4 +1,4 @@
-import { createStore } from 'redux';
+import { createStore, compose } from 'redux';
 
 const initialState = {
   coffees: 0,
@@ -11,7 +11,7 @@ function reducer(state = initialState, action) {
   switch(action.type) {
     case 'DRINK_COFFEE':
       return { ...state, coffees: state.coffees + 1 };
-    case 'EAT_SNACK':
+    case 'EAT_SNACKS':
       return { ...state, snacks: state.snacks + 1 };
     case 'TAKE_NAP':
       return { ...state, naps: state.naps + 1 };
@@ -22,9 +22,9 @@ function reducer(state = initialState, action) {
   }
 }
 
-const store = createStore(
-  reducer,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-);
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-export default store;
+export default createStore(
+  reducer,
+  composeEnhancers()
+);
