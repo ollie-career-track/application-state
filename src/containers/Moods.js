@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { getCoffees, getSnacks, getNaps, getStudies } from '../selectors/moodSelectors';
 import Controls from '../components/controls/Controls';
 import Face from '../components/face/Face';
 
@@ -19,12 +20,12 @@ export const getFace = state => {
   return '😀';
 };
 
-const actions = [
-  { name: 'DRINK_COFFEE', text: 'Drink Coffee', stateName: 'coffees' },
-  { name: 'EAT_SNACK', text: 'Snack', stateName: 'snacks' },
-  { name: 'TAKE_NAP', text: 'Nap', stateName: 'naps' },
-  { name: 'STUDY', text: 'Study', stateName: 'studies' },
-];
+// const actions = [
+//   { name: 'DRINK_COFFEE', text: 'Drink Coffee', stateName: 'coffees' },
+//   { name: 'EAT_SNACK', text: 'Snack', stateName: 'snacks' },
+//   { name: 'TAKE_NAP', text: 'Nap', stateName: 'naps' },
+//   { name: 'STUDY', text: 'Study', stateName: 'studies' },
+// ];
 
 // eslint-disable-next-line react/prop-types
 const Moods = ({ actions, emoji, handleSelection }) => (
@@ -34,10 +35,18 @@ const Moods = ({ actions, emoji, handleSelection }) => (
   </>
 );
 
-const mapStateToProps = state => ({
-  actions: actions.map(action => ({ ...action, count: state[action.stateName] })),
-  emoji: getFace(state)
-});
+// actions: actions.map(action => ({ ...action, count: state[action.stateName] })),
+// emoji: getFace(state)
+
+const mapStateToProps = state => {
+  return {
+    coffees: getCoffees(state),
+    snacks: getSnacks(state),
+    naps: getNaps(state),
+    studies: getStudies(state)
+  };
+};
+
 
 const mapDispatchToProps = dispatch => ({
   handleSelection(name) {
