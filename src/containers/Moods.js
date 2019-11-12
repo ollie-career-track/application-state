@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getCoffees, getSnacks, getNaps, getStudies } from '../selectors/moodSelectors';
 import Controls from '../components/controls/Controls';
@@ -20,23 +21,40 @@ export const getFace = state => {
   return '😀';
 };
 
-// const actions = [
-//   { name: 'DRINK_COFFEE', text: 'Drink Coffee', stateName: 'coffees' },
-//   { name: 'EAT_SNACK', text: 'Snack', stateName: 'snacks' },
-//   { name: 'TAKE_NAP', text: 'Nap', stateName: 'naps' },
-//   { name: 'STUDY', text: 'Study', stateName: 'studies' },
-// ];
+const actions = [
+  { name: 'DRINK_COFFEE', text: 'Drink Coffee', stateName: 'coffees' },
+  { name: 'EAT_SNACK', text: 'Snack', stateName: 'snacks' },
+  { name: 'TAKE_NAP', text: 'Nap', stateName: 'naps' },
+  { name: 'STUDY', text: 'Study', stateName: 'studies' },
+];
 
-// eslint-disable-next-line react/prop-types
-const Moods = ({ actions, emoji, handleSelection }) => (
-  <>
-    <Controls actions={actions} handleSelection={handleSelection} />
-    <Face emoji={emoji} />
-  </>
-);
+const Moods = ({ coffees, snacks, naps, studies, handleSelection }) => {
+  const count = {
+    coffees,
+    snacks,
+    naps, 
+    studies
+  };
+
+  const face = getFace(count);
+
+  return (
+    <>
+      <Controls actions={actions} handleSelection={handleSelection} />
+      <Face emoji={face} />
+    </>
+  );
+};
+
+Moods.propTypes = {
+  coffees: PropTypes.number.isRequired,
+  snacks: PropTypes.number.isRequired,
+  naps: PropTypes.number.isRequired,
+  studies: PropTypes.number.isRequired,
+  handleSelection: PropTypes.func.isRequired
+};
 
 // actions: actions.map(action => ({ ...action, count: state[action.stateName] })),
-// emoji: getFace(state)
 
 const mapStateToProps = state => {
   return {
@@ -46,7 +64,6 @@ const mapStateToProps = state => {
     studies: getStudies(state)
   };
 };
-
 
 const mapDispatchToProps = dispatch => ({
   handleSelection(name) {
