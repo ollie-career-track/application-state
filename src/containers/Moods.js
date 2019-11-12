@@ -24,7 +24,7 @@ export const getFace = state => {
 
 const actions = [
   { name: 'DRINK_COFFEE', text: 'Drink Coffee', stateName: 'coffees' },
-  { name: 'EAT_SNACK', text: 'Snack', stateName: 'snacks' },
+  { name: 'EAT_SNACKS', text: 'Snack', stateName: 'snacks' },
   { name: 'TAKE_NAP', text: 'Nap', stateName: 'naps' },
   { name: 'STUDY', text: 'Study', stateName: 'studies' },
 ];
@@ -66,10 +66,10 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => ({
   handleSelection(name) {
-    if(name === 'coffees') dispatch(drinkCoffee());
-    if(name === 'snacks') dispatch(eatSnacks());
-    if(name === 'naps') dispatch(takeNap());
-    if(name === 'study') dispatch(study());
+    if(name === 'DRINK_COFFEE') dispatch(drinkCoffee());
+    if(name === 'EAT_SNACKS') dispatch(eatSnacks());
+    if(name === 'TAKE_NAP') dispatch(takeNap());
+    if(name === 'STUDY') dispatch(study());
   }
 });
 
