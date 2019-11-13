@@ -5,6 +5,8 @@ import { getCoffees, getSnacks, getNaps, getStudies } from '../selectors/moodSel
 import { drinkCoffee, eatSnacks, takeNap, study } from '../actions/moodActions';
 import Controls from '../components/controls/Controls';
 import Face from '../components/face/Face';
+// import ResetButton from '../components/reset/ResetButton';
+import styles from './Moods.css';
 
 export const isTired = state => state.coffees < 1 && state.naps < 1;
 export const isHyper = state => state.coffees > 3;
@@ -33,17 +35,18 @@ const Moods = ({ coffees, snacks, naps, studies, handleSelection }) => {
   const count = {
     coffees,
     snacks,
-    naps, 
+    naps,
     studies
   };
 
   const face = getFace(count);
 
   return (
-    <>
+    <section className={styles.Moods}>
       <Controls actions={actions} handleSelection={handleSelection} />
       <Face emoji={face} />
-    </>
+      {/* <ResetButton /> */}
+    </section>
   );
 };
 
