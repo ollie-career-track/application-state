@@ -1,5 +1,14 @@
 .Moods {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+
   p {
     margin-top: 5%;
+  }
+
+  button {
+    align-self: center;
+    font-size: 18px;
   }
 }
