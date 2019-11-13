@@ -2,10 +2,7 @@ import { RESET_GAME } from '../actions/gameActions';
 // import save game action
 
 const initialState = {
-  coffees: 0,
-  snacks: 0,
-  naps: 0,
-  studies: 0
+  savedgames: []
 };
 
 // saved game state?

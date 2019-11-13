@@ -62,10 +62,10 @@ Moods.propTypes = {
 
 const mapStateToProps = state => {
   return {
-    coffees: getCoffees(state),
-    snacks: getSnacks(state),
-    naps: getNaps(state),
-    studies: getStudies(state)
+    coffees: getCoffees(state.moods),
+    snacks: getSnacks(state.moods),
+    naps: getNaps(state.moods),
+    studies: getStudies(state.moods)
   };
 };
 
