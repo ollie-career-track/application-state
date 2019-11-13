@@ -3,6 +3,7 @@ import {
   EAT_SNACKS, eatSnacks,
   TAKE_NAP, takeNap,
   STUDY, study,
+  RESET_GAME, resetGame
 } from './moodActions';
 
 describe('mood actions', () => {
@@ -27,6 +28,12 @@ describe('mood actions', () => {
   it('creates a study action', () => {
     expect(study()).toEqual({
       type: STUDY
+    });
+  });
+
+  it('creates a reset game action', () => {
+    expect(resetGame()).toEqual({
+      type: RESET_GAME
     });
   });
 });

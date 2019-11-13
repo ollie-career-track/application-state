@@ -1,19 +1,14 @@
-import { RESET_GAME } from '../actions/gameActions';
-// import save game action
+import { SAVE_GAME } from '../actions/gameActions';
 
 const initialState = {
-  savedgames: []
+  savedGames: []
 };
-
-// saved game state?
 
 export default function reducer(state = initialState, action) {
   switch(action.type) {
-    case RESET_GAME:
-      return { coffees: 0, snacks: 0, naps: 0, studies: 0 };
+    case SAVE_GAME:
+      return { ...state };
     default:
       return state;
   }
 }
-
-// case save game

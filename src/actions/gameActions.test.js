@@ -1,16 +1,9 @@
-import {
-  RESET_GAME, resetGame
-  // import save
-} from './gameActions';
+import { SAVE_GAME, saveGame } from './gameActions';
 
 describe('game actions', () => {
-  it('creates a reset game action', () => {
-    expect(resetGame()).toEqual({
-      type: RESET_GAME
-    });
-  });
-
   it('creates a save game action', () => {
-
+    expect(saveGame()).toEqual({
+      type: SAVE_GAME
+    });
   });
 });

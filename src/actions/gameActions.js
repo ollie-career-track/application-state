@@ -1,6 +1,4 @@
-export const RESET_GAME = 'RESET_GAME';
-export const resetGame = () => ({
-  type: RESET_GAME
+export const SAVE_GAME = 'RESET_GAME';
+export const saveGame = () => ({
+  type: SAVE_GAME
 });
-
-// Save Game

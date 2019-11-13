@@ -21,3 +21,8 @@ export const study = studies => ({
   type: STUDY,
   payload: studies
 });
+
+export const RESET_GAME = 'RESET_GAME';
+export const resetGame = () => ({
+  type: RESET_GAME
+});
