@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getCoffees, getSnacks, getNaps, getStudies } from '../selectors/moodSelectors';
-import { drinkCoffee, eatSnacks, takeNap, study } from '../actions/moodActions';
+import { drinkCoffee, eatSnacks, takeNap, study, resetGame } from '../actions/moodActions';
 import Controls from '../components/controls/Controls';
 import Face from '../components/face/Face';
 import ResetButton from '../components/reset/ResetButton';
@@ -31,7 +31,7 @@ const actions = [
   { name: 'STUDY', text: 'Study', stateName: 'studies' },
 ];
 
-const Moods = ({ coffees, snacks, naps, studies, handleSelection }) => {
+const Moods = ({ coffees, snacks, naps, studies, handleSelection, handleClick }) => {
   const count = {
     coffees,
     snacks,
@@ -45,7 +45,7 @@ const Moods = ({ coffees, snacks, naps, studies, handleSelection }) => {
     <section className={styles.Moods}>
       <Controls actions={actions} handleSelection={handleSelection} />
       <Face emoji={face} />
-      <ResetButton />
+      <ResetButton handleClick={handleClick} />
     </section>
   );
 };
@@ -55,7 +55,8 @@ Moods.propTypes = {
   snacks: PropTypes.number.isRequired,
   naps: PropTypes.number.isRequired,
   studies: PropTypes.number.isRequired,
-  handleSelection: PropTypes.func.isRequired
+  handleSelection: PropTypes.func.isRequired,
+  handleClick: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => {
@@ -67,14 +68,19 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch => ({
-  handleSelection(name) {
-    if(name === 'DRINK_COFFEE') dispatch(drinkCoffee());
-    if(name === 'EAT_SNACKS') dispatch(eatSnacks());
-    if(name === 'TAKE_NAP') dispatch(takeNap());
-    if(name === 'STUDY') dispatch(study());
-  }
-});
+const mapDispatchToProps = dispatch => {
+  return {
+    handleSelection(name) {
+      if(name === 'DRINK_COFFEE') dispatch(drinkCoffee());
+      if(name === 'EAT_SNACKS') dispatch(eatSnacks());
+      if(name === 'TAKE_NAP') dispatch(takeNap());
+      if(name === 'STUDY') dispatch(study());
+    },
+    handleClick() {
+      dispatch(resetGame());
+    }
+  };
+};
 
 export default connect(
   mapStateToProps,
